@@ -1,5 +1,5 @@
 # pheme
-Pheme is a serverless application written in Angular that uses Google Firebase as your single backend infrastructure.
+Pheme is a basic serverless Content Management System (CMS) written in Angular that uses Google Firebase as your single backend infrastructure.
 
 ## Techonologies 
  - Angular 6
