@@ -1,5 +1,5 @@
 {
-  "extends": "tslint-config-airbnb",
+  "extends": "tslint-angular",
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
