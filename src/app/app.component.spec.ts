@@ -4,6 +4,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { environment } from '../environments/environment';
+import { ICacheServiceProvider} from './core/cache/icache.service.provider';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -17,6 +18,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [ICacheServiceProvider]
     }).compileComponents();
   }));
 

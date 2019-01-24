@@ -3,6 +3,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { environment } from '../../../environments/environment';
+import { ICacheServiceProvider} from '../cache/icache.service.provider';
 import { SettingsService } from './settings.service';
 
 describe('SettingsService', () => {
@@ -11,6 +12,8 @@ describe('SettingsService', () => {
       AngularFirestoreModule,
       AngularFireModule.initializeApp(environment.firebase)
     ],
+    providers: [ICacheServiceProvider]
+
   }));
 
   it('should be created', () => {

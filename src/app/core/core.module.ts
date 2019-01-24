@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { ICacheServiceProvider} from './cache/icache.service.provider';
+
 let singletonModule = null;
 
 @NgModule({
@@ -8,6 +10,8 @@ let singletonModule = null;
   imports: [
     CommonModule,
   ],
+  providers: [ICacheServiceProvider],
+
 })
 export class CoreModule {
 
