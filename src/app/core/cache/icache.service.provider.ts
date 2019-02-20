@@ -1,5 +1,5 @@
-import { InMemoryCacheStorageService } from './inmemory-cache-storage.service';
-import { LocalCacheStorageService } from './local-cache-storage.service';
+import { InMemoryCacheStorageService } from './inmemory-cache-storage/inmemory-cache-storage.service';
+import { LocalCacheStorageService } from './local-cache-storage/local-cache-storage.service';
 
 const iCacheServiceFactory = () => {
 

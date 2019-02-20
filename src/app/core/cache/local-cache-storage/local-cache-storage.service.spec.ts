@@ -1,6 +1,4 @@
-import { of } from 'rxjs';
-
-import {CacheControl} from './cache-control';
+import {CacheControl} from '../cache-control';
 import {LocalCacheStorageService} from './local-cache-storage.service';
 
 describe('LocalCacheStorage', () => {

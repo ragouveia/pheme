@@ -1,7 +1,7 @@
-import {AbstractCacheStorageService} from './abstract-cache-storage.service';
+import {AbstractCacheStorageService} from '../abstract-cache-storage.service';
 
 
-import {CacheControl} from './cache-control';
+import {CacheControl} from '../cache-control';
 
 export class LocalCacheStorageService extends AbstractCacheStorageService  {
 
