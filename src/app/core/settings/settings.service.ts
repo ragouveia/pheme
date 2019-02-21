@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import {GeneralSiteSettings} from '../../shared/model/index';
 import {ICacheStorageService} from '../cache/icache-storage.service';
-import {getFirebirdData} from '../firebird/firebird-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +19,12 @@ export class SettingsService {
               @Inject('ICacheServiceProvider') private cache: ICacheStorageService) {  }
 
   getGeneralSiteSettings(): Observable<GeneralSiteSettings> {
-    const dataFromFirebird = getFirebirdData<GeneralSiteSettings>(
-      this.firestore
-          .doc<GeneralSiteSettings>(SettingsService.GENERAL_SITE_SETTINGS_DOCUMENT))
+    const dataFromFirebird =  this
+          .firestore
+          .doc<GeneralSiteSettings>(SettingsService.GENERAL_SITE_SETTINGS_DOCUMENT)
+          .get()
           .pipe(
-            map(generalSiteSettings => this.siteSettings = generalSiteSettings)
+            map(generalSiteSettings => this.siteSettings = <GeneralSiteSettings>generalSiteSettings.data())
           );
 
     return this.siteSettings
