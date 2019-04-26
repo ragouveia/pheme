@@ -2,12 +2,9 @@ import { InMemoryCacheStorageService } from './inmemory-cache-storage/inmemory-c
 import { LocalCacheStorageService } from './local-cache-storage/local-cache-storage.service';
 
 const iCacheServiceFactory = () => {
-
-  if (window.localStorage) {
-    return new LocalCacheStorageService();
-  } else {
-    return new InMemoryCacheStorageService();
-  }
+  return window.localStorage
+    ? new LocalCacheStorageService()
+    : new InMemoryCacheStorageService();
 };
 
 export const ICacheServiceProvider = {
