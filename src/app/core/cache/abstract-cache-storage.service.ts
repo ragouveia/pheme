@@ -60,9 +60,6 @@ export abstract class AbstractCacheStorageService implements ICacheStorageServic
         return returnedValue;
     }
 
-    private valueToString(value: any) {
-    }
-
     private handleGeneratedObservableValue<T>(functionGeneratorResult: Observable<T>, key: string): Observable<T> {
         return functionGeneratorResult.pipe(
             tap(value => this.put<T>(key, value)),
