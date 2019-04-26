@@ -1,5 +1,7 @@
-import {CacheControl} from '../cache-control';
-import {LocalCacheStorageService} from './local-cache-storage.service';
+import { of } from 'rxjs';
+
+import { CacheControl } from '../cache-control';
+import { LocalCacheStorageService } from './local-cache-storage.service';
 
 describe('LocalCacheStorage', () => {
 
@@ -44,50 +46,19 @@ describe('LocalCacheStorage', () => {
     expect(window.localStorage.getItem(key)).toBeNull();
   });
 
-  it('6 - should remove the least accessed itens from cache when its is full', () => {
-    const mostAccessedKey = 'mostAccessed';
-    const leastAccessedKey = 'leastAccessed';
-    const otherKey = 'otherKey';
+});
 
-    // put 2 values into cache
-    setupCacheWithKey(leastAccessedKey, leastAccessedKey);
-    setupCacheWithKey(mostAccessedKey, mostAccessedKey);
-
-    for (let i = 0; i < 100; i++) {
-      localCacheStorage.get(mostAccessedKey);
-
-      if (i < 50 ) {
-        localCacheStorage.get(leastAccessedKey);
-      }
-    }
-
-    const spyObj = simulateLocalStorageQuotaExceededError();
-    localCacheStorage.put(otherKey, otherKey);
-
-    expect(window.localStorage.getItem(mostAccessedKey)).toBeDefined();
-    expect(window.localStorage.getItem(leastAccessedKey)).toBeNull();
-    expect(window.localStorage.getItem(otherKey)).toBeDefined();
-  });
-
-  });
-
-function setupCacheWithKey(key: string, value: string, hash = '') {
-  window.localStorage.setItem(key, JSON.stringify(new CacheControl(key, JSON.stringify(value), hash)));
-}
-
-function simulateLocalStorageQuotaExceededError(count = 1) {
-  const originalFunction = window.localStorage.setItem.bind(window.localStorage);
-
-  return spyOn(window.localStorage, 'setItem').and.callFake((key, value) => {
-      if (count > 0 ) {
-          count--;
-          throw new Error('QuotaExceededError');
-      } else {
-          originalFunction(key, value);
-      }
-  });
+function setupCacheWithKey(key: string, value: string, hash: string = '') {
+  const storedKey = LocalCacheStorageService.CACHE_CONTROL_PREFIX_KEY + key;
+  window.localStorage.setItem(storedKey , JSON.stringify(new CacheControl(key, JSON.stringify(value), hash)));
 }
 
 function getValueFromCacheControl(key: string): string {
-  return JSON.parse(JSON.parse(window.localStorage[key]).value);
+  const storeKey = LocalCacheStorageService.CACHE_CONTROL_PREFIX_KEY + key;
+
+  /**
+   * Thre are two JSON "stringfied" values: one is the cache control stored in the localstorage and the other one is the value
+   * itself that the cache control save
+   */
+  return JSON.parse(JSON.parse(window.localStorage[storeKey]).value);
 }
